@@ -1,21 +1,15 @@
-package org.stei.shortest;
+package org.stei.ai.sample.shortest;
 
-import org.stei.ai.AbstractState;
-import org.stei.ai.State;
+import org.stei.ai.core.AbstractState;
+import org.stei.ai.core.State;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PathState extends AbstractState {
-    private final Node currentNode;
+public class PathState extends AbstractState<Node> {
 
-    public Node getCurrentNode() {
-        return currentNode;
-    }
-
-    public PathState(State parentState, Object status) {
+    public PathState(State parentState, Node status) {
         super(parentState, status);
-        this.currentNode = (Node)status;
     }
 
     public PathState(Node node) {
@@ -29,7 +23,7 @@ public class PathState extends AbstractState {
 
     @Override
     public Iterable<State> getChildStates() {
-        Iterable<Node> nodes = currentNode.getNeighbours();
+        Iterable<Node> nodes = status.getNeighbours();
         List<State> result = new ArrayList<>();
         for (Node n : nodes) result.add(new PathState(this, n));
         return result;
@@ -37,11 +31,11 @@ public class PathState extends AbstractState {
 
     @Override
     public String toString() {
-        return currentNode.toString();
+        return status.toString();
     }
 
     public int getDistanceToParentNode() {
-        return isRoot()? 0 : getCurrentNode().getDistance(((PathState)getParentState()).getCurrentNode());
+        return isRoot()? 0 : status.getDistance(((PathState)getParentState()).status);
     }
 }
 

@@ -1,4 +1,4 @@
-package org.stei.shortest;
+package org.stei.ai.sample.shortest;
 
 import java.util.HashMap;
 import java.util.Map;

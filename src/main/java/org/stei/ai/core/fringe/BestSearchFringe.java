@@ -1,10 +1,10 @@
-package org.stei.ai.fringe;
+package org.stei.ai.core.fringe;
 
 import java.util.HashSet;
 import java.util.PriorityQueue;
 
-import org.stei.ai.Evaluator;
-import org.stei.ai.State;
+import org.stei.ai.core.Evaluator;
+import org.stei.ai.core.State;
 
 public class BestSearchFringe extends AbstractFringe {
     private Evaluator evaluator;

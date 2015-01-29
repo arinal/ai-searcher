@@ -1,10 +1,10 @@
-package org.stei.ai.fringe;
+package org.stei.ai.core.fringe;
 
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import org.stei.ai.State;
+import org.stei.ai.core.State;
 
 public class BreadthSearchFringe extends AbstractFringe {
 	private Queue<State> candidates = new LinkedList<>();

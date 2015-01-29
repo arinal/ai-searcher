@@ -1,4 +1,4 @@
-package org.stei.ai;
+package org.stei.ai.core;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
-package org.stei.ai.fringe;
+package org.stei.ai.core.fringe;
 
-import org.stei.ai.State;
+import org.stei.ai.core.State;
 
 public interface Fringe {
     void clear();

@@ -1,7 +1,7 @@
-package org.stei.eightpuzzle;
+package org.stei.ai.sample.eightpuzzle;
 
-import org.stei.ai.Evaluator;
-import org.stei.ai.State;
+import org.stei.ai.core.Evaluator;
+import org.stei.ai.core.State;
 
 public class MisplacedBlocksEvaluator implements Evaluator {
 	@Override

@@ -1,4 +1,4 @@
-package org.stei.ai;
+package org.stei.ai.core;
 
 public class AStarEvaluator implements Evaluator {
 

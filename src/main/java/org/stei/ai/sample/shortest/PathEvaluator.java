@@ -1,7 +1,7 @@
-package org.stei.shortest;
+package org.stei.ai.sample.shortest;
 
-import org.stei.ai.Evaluator;
-import org.stei.ai.State;
+import org.stei.ai.core.Evaluator;
+import org.stei.ai.core.State;
 
 public class PathEvaluator implements Evaluator {
     @Override

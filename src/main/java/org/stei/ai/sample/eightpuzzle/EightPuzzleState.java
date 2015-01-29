@@ -1,9 +1,9 @@
-package org.stei.eightpuzzle;
+package org.stei.ai.sample.eightpuzzle;
 
 import java.util.ArrayList;
 
-import org.stei.ai.AbstractState;
-import org.stei.ai.State;
+import org.stei.ai.core.AbstractState;
+import org.stei.ai.core.State;
 
 public class EightPuzzleState extends AbstractState<int[]> {
 
@@ -57,8 +57,9 @@ public class EightPuzzleState extends AbstractState<int[]> {
         if (!isPossible(direction, index))
             return null;
         int[] newSeq = status.clone();
-        newSeq[index] = newSeq[index + direction.getValue()];
-        newSeq[index + direction.getValue()] = 0;
+        int dir = direction.getValue();
+        newSeq[index] = newSeq[index + dir];
+        newSeq[index + dir] = 0;
         return new EightPuzzleState(this, newSeq);
     }
 
@@ -66,7 +67,8 @@ public class EightPuzzleState extends AbstractState<int[]> {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < status.length; i++)
-            builder.append(status[i] + (((i + 1) % 3 == 0) ? "\n" : " "));
+            builder.append((status[i] == 0? " " : status[i]) +
+                    (((i + 1) % 3 == 0) ? "\n" : " "));
         return builder.toString();
     }
 

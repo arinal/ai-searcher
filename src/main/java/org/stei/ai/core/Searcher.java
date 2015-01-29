@@ -1,8 +1,8 @@
-package org.stei.ai;
+package org.stei.ai.core;
 
 import java.util.List;
 
-import org.stei.ai.fringe.Fringe;
+import org.stei.ai.core.fringe.Fringe;
 
 public class Searcher {	
 	public static List<State> search(State from, State to, Fringe fringe) {
