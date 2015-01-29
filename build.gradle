@@ -1,0 +1,10 @@
+apply plugin: 'java'
+
+version = 0.0
+
+task run(type: JavaExec) {
+    main = "org.stei.ui.konsole.Program"
+    classpath = files("build/libs/${project.name}-${version}.jar")
+}
+
+run.dependsOn(build)

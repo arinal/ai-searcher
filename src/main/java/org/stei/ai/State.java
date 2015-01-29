@@ -5,14 +5,12 @@ import java.util.List;
 public interface State {
 	Object getStatus();
 	boolean statusEquals(State other);
-	
-	boolean isValid();
-	
+    boolean isValid();
+
 	boolean isRoot();
-	State getParentState();
-	void setParentState(State currentState);
-	void makeRoot();
-	
+    void makeRoot();
+    State getParentState();
+    void setParentState(State currentState);
 	int depth();
 			
 	Iterable<State> getChildStates();

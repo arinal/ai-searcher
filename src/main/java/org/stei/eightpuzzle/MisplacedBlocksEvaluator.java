@@ -1,4 +1,4 @@
-package org.stei.ai.eightpuzzle;
+package org.stei.eightpuzzle;
 
 import org.stei.ai.Evaluator;
 import org.stei.ai.State;

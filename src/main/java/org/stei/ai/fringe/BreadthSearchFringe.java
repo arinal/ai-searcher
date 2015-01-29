@@ -7,8 +7,8 @@ import java.util.Queue;
 import org.stei.ai.State;
 
 public class BreadthSearchFringe extends AbstractFringe {
-	private Queue<State> candidates = new LinkedList<State>();
-	private HashSet<State> addedState = new HashSet<State>();
+	private Queue<State> candidates = new LinkedList<>();
+	private HashSet<State> addedState = new HashSet<>();
 	
 	public void add(State state) {
 		if (addedState.contains(state))
@@ -17,7 +17,7 @@ public class BreadthSearchFringe extends AbstractFringe {
 	}	
 
 	public State pickCandidate() {
-		return candidates.remove();
+        return candidates.remove();
 	}
 
 	@Override
@@ -25,14 +25,5 @@ public class BreadthSearchFringe extends AbstractFringe {
 		addedState.clear();
 		candidates.clear();
 	}
-	
-	@Override
-	public int getExploredState() {
-		return addedState.size(); 
-	}
 
-	@Override
-	public int count() {
-		return candidates.size();
-	}
 }

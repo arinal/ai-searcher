@@ -24,14 +24,5 @@ public class DepthSearchFringe extends AbstractFringe {
 		addedState.clear();
 		candidates.clear();
 	}
-	
-	@Override
-	public int getExploredState() {
-		return addedState.size(); 
-	}
 
-	@Override
-	public int count() {
-		return candidates.size();
-	}
 }

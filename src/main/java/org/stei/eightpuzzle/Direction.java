@@ -1,4 +1,4 @@
-package org.stei.ai.eightpuzzle;
+package org.stei.eightpuzzle;
 
 public enum Direction {
 	Up(-3),

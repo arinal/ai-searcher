@@ -5,7 +5,7 @@ import java.util.List;
 import org.stei.ai.fringe.Fringe;
 
 public class Searcher {	
-	public List<State> search(State from, State to, Fringe fringe) {
+	public static List<State> search(State from, State to, Fringe fringe) {
 		fringe.clear();
 		from.makeRoot();
 		State current = from;
@@ -17,5 +17,3 @@ public class Searcher {
 		return current.getPath();
 	}
 }
-
-//System.out.println(fringe.getExploredState() + " " + fringe.count());

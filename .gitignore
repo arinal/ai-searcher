@@ -2,7 +2,8 @@
 /build/
 /bin/
 target/
- 
+.gradle/
+
 # OS Files #
 .DS_Store
  
@@ -69,3 +70,9 @@ local.properties
  
 # PDT-specific
 .buildpath
+
+######################
+# IDEA
+######################
+.idea/
+*.iml
