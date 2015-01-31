@@ -1,13 +1,13 @@
 package org.stei.ai.sample.eightpuzzle;
 
-import java.util.ArrayList;
-
 import org.stei.ai.core.AbstractState;
-import org.stei.ai.core.State;
 
-public class EightPuzzleState extends AbstractState<int[]> {
+import java.util.ArrayList;
+import java.util.Arrays;
 
-    public EightPuzzleState(State parent, int... sequence) {
+public class EightPuzzleState extends AbstractState<int[], EightPuzzleState> {
+
+    public EightPuzzleState(EightPuzzleState parent, int... sequence) {
         super(parent, sequence.clone());
         if (!isValid())
             throw new IllegalArgumentException("sequence is not valid!");
@@ -18,10 +18,10 @@ public class EightPuzzleState extends AbstractState<int[]> {
     }
 
     @Override
-    public Iterable<State> getChildStates() {
-        ArrayList<State> nextStates = new ArrayList<>();
+    public Iterable<EightPuzzleState> getChildStates() {
+        ArrayList<EightPuzzleState> nextStates = new ArrayList<>();
         for (Direction dir : Direction.values()) {
-            State state = nextState(dir);
+            EightPuzzleState state = nextState(dir);
             if (state != null)
                 nextStates.add(state);
         }
@@ -30,15 +30,7 @@ public class EightPuzzleState extends AbstractState<int[]> {
 
     public boolean isValid() {
         int counts[] = new int[9];
-        for (int n : status)
-            if (n < 0 || n > 8 || ++counts[n] != 1)
-                return false;
-        return true;
-    }
-
-    @Override
-    public int[] getStatus() {
-        return status.clone();
+        return isSolvable() && status.length == 9 && !Arrays.stream(status).anyMatch(n -> n < 0 || n > 8 || ++counts[n] != 1);
     }
 
     public boolean isSolvable() {
@@ -64,26 +56,28 @@ public class EightPuzzleState extends AbstractState<int[]> {
     }
 
     @Override
+    public boolean statusEquals(EightPuzzleState to) {
+        return statusHashCode() == to.statusHashCode();
+    }
+
+    @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < status.length; i++)
-            builder.append((status[i] == 0? " " : status[i]) +
-                    (((i + 1) % 3 == 0) ? "\n" : " "));
+        for (int i = 0; i < status.length; i++) {
+            builder.append((status[i] == 0? " " : status[i]));
+            builder.append((((i + 1) % 3 == 0) ? "\n" : " "));
+        }
         return builder.toString();
     }
 
     @Override
-    public boolean equals(Object other) {
-        return statusEquals((EightPuzzleState) other);
+    public int statusHashCode() {
+        return Arrays.stream(status).reduce(0, (n1, n2) -> n1 * 10 + n2);
     }
 
     @Override
     public int hashCode() {
-        return getHash();
-    }
-
-    public boolean statusEquals(State other) {
-        return hashCode() == other.hashCode();
+        return statusHashCode();
     }
 
     public int getInversions(int index) {
@@ -103,15 +97,8 @@ public class EightPuzzleState extends AbstractState<int[]> {
 
     private boolean isPossible(Direction direction, int index) {
         int dest = index + direction.getValue();
-        return !(dest < 0 || dest > 8 || index == 3 && dest == 2 || index == 6
-                && dest == 5 || index == 2 && dest == 3 || index == 5
-                && dest == 6);
-    }
-
-    private int getHash() {
-        int hash = 0;
-        for (int n : status)
-            hash = hash * 10 + n;
-        return hash;
+        return !(dest < 0 || dest > 8 || index == 3 && dest == 2 ||
+                index == 6 && dest == 5 || index == 2 && dest == 3 ||
+                index == 5 && dest == 6);
     }
 }

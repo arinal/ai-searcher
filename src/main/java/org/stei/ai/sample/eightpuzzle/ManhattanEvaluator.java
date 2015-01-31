@@ -1,14 +1,12 @@
 package org.stei.ai.sample.eightpuzzle;
 
 import org.stei.ai.core.Evaluator;
-import org.stei.ai.core.State;
 
-public class ManhattanEvaluator implements Evaluator {
+public class ManhattanEvaluator implements Evaluator<EightPuzzleState> {
 	@Override
-	public double evaluate(State state) { 
-		EightPuzzleState theState = (EightPuzzleState) state;
+	public double evaluate(EightPuzzleState state) {
 		double result = 0;
-		int[] status = theState.getStatus();
+		int[] status = state.getStatus();
 		for (int i = 0; i < status.length; i++)
 			result += getManhattanDistance(status[i], i);
 		return result;

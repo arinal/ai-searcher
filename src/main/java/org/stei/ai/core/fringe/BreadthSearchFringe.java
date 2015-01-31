@@ -14,16 +14,10 @@ public class BreadthSearchFringe extends AbstractFringe {
 		if (addedState.contains(state))
 			return;
 		candidates.add(state);
+        addedState.add(state);
 	}	
 
 	public State pickCandidate() {
         return candidates.remove();
 	}
-
-	@Override
-	public void clear() {
-		addedState.clear();
-		candidates.clear();
-	}
-
 }

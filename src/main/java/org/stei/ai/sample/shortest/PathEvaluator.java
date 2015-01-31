@@ -1,18 +1,12 @@
 package org.stei.ai.sample.shortest;
 
 import org.stei.ai.core.Evaluator;
-import org.stei.ai.core.State;
 
-public class PathEvaluator implements Evaluator {
+public class PathEvaluator implements Evaluator<ShortestState> {
     @Override
-    public double evaluate(State state) {
-        PathState pathState = (PathState)state;
-        double result = 0;
-        do {
-            PathState next = (PathState) pathState.getParentState();
-            result += pathState.getDistanceToParentNode();
-            pathState = next;
-        } while (!pathState.isRoot());
-        return result;
+    public double evaluate(ShortestState state) {
+        return state.getPath().stream()
+                .map(ShortestState::getDistanceToParentNode)
+                .reduce(0, (a, b) -> a + b);
     }
 }

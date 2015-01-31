@@ -43,13 +43,12 @@ public class Node {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Node node = (Node) o;
-        if (tag != null ? !tag.equals(node.tag) : node.tag != null) return false;
-        return true;
+        return tag.equals(node.tag);
     }
 
     @Override
     public int hashCode() {
-        return tag != null ? tag.hashCode() : 0;
+        return tag.hashCode();
     }
 }
 

@@ -2,69 +2,90 @@ package org.stei.ai.core;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
-public abstract class AbstractState<T> implements State {
-    protected T status;
-    private State parentState;
+import static java.util.stream.Collectors.joining;
 
-    public AbstractState(State parentState, T status) {
+public abstract class AbstractState<TStatus, TState extends State> implements State<TStatus, TState> {
+    private final TState parentState;
+    protected final TStatus status;
+    private final int hash;
+
+    protected AbstractState(TState parentState, TStatus status) {
         this.status = status;
         this.parentState = parentState;
+        hash = hashCode();
     }
 
     @Override
-    public T getStatus() {
+    public TStatus getStatus() {
         return status;
     }
 
     @Override
-    public State getParentState() {
+    public TState getParentState() {
         return parentState;
     }
 
     @Override
-    public void makeRoot() {
-        setParentState(null);
-    }
-
-    @Override
-    public boolean isRoot() {
-        return getParentState() == null;
-    }
-
-    public boolean statusEquals(State other) {
-        return status.equals(other.getStatus());
-    }
-
-    public void setParentState(State parent) {
-        this.parentState = parent;
+    public boolean isNotRoot() {
+        return getParentState() != null;
     }
 
     @Override
     public int depth() {
-        int result = 0;
-        State state = this;
-        while (!state.isRoot()) {
-            state = state.getParentState();
-            result++;
-        }
-        return result;
+        return getPath().size();
     }
 
     @Override
-    public List<State> getPath() {
-        State currentState = this;
-        LinkedList<State> path = new LinkedList<>();
-        while (!currentState.isRoot()) {
+    public List<TState> getPath() {
+        TState currentState = (TState) this;
+        LinkedList<TState> path = new LinkedList<>();
+        while (currentState.isNotRoot()) {
             path.addFirst(currentState);
-            currentState = currentState.getParentState();
+            currentState = (TState)currentState.getParentState();
         }
         path.addFirst(currentState);
         return path;
     }
 
     @Override
+    public String getPathString(String delimiter) {
+        return getPath().stream().map(Object::toString).collect(joining(delimiter));
+    }
+
+    @Override
+    public boolean pathEquals(TState other) {
+        return pathHashCode() == other.pathHashCode();
+    }
+
+    @Override
+    public int pathHashCode() {
+        return hash == 0? Objects.hash(isNotRoot() ? parentState.hashCode() : 0, statusHashCode()) : hash;
+    }
+
+    @Override
+    public boolean statusEquals(TState to) {
+        return status.equals(to.getStatus());
+    }
+
+    @Override
     public String toString() {
         return status.toString();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other.getClass() == getClass() && pathEquals((TState)other);
+    }
+
+    @Override
+    public int hashCode() {
+        return pathHashCode();
+    }
+
+    @Override
+    public int statusHashCode() {
+        return status.hashCode();
     }
 }

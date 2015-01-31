@@ -2,17 +2,20 @@ package org.stei.ai.core;
 
 import java.util.List;
 
-public interface State {
-	Object getStatus();
-	boolean statusEquals(State other);
+public interface State<TStatus, TState extends State> {
+	TStatus getStatus();
     boolean isValid();
 
-	boolean isRoot();
-    void makeRoot();
-    State getParentState();
-    void setParentState(State currentState);
+	boolean isNotRoot();
+    TState getParentState();
 	int depth();
-			
-	Iterable<State> getChildStates();
-	List<State> getPath();
+	Iterable<TState> getChildStates();
+
+    List<TState> getPath();
+    String getPathString(String delimiter);
+    boolean pathEquals(TState to);
+    int pathHashCode();
+
+    boolean statusEquals(TState to);
+    int statusHashCode();
 }

@@ -1,6 +1,6 @@
 package org.stei.ai.core;
 
-public class AStarEvaluator implements Evaluator {
+public class AStarEvaluator<TState extends State> implements Evaluator<TState> {
 
     private Evaluator greedyEvaluator;
 
@@ -9,11 +9,11 @@ public class AStarEvaluator implements Evaluator {
     }
 
     @Override
-    public double evaluate(State state) {
+    public double evaluate(TState state) {
         return greedyEvaluator.evaluate(state) + getActual(state);
     }
 
-    protected int getActual(State state) {
+    protected int getActual(TState state) {
         return state.depth();
     }
 }

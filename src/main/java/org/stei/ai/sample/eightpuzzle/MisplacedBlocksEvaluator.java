@@ -1,12 +1,11 @@
 package org.stei.ai.sample.eightpuzzle;
 
 import org.stei.ai.core.Evaluator;
-import org.stei.ai.core.State;
 
-public class MisplacedBlocksEvaluator implements Evaluator {
+public class MisplacedBlocksEvaluator implements Evaluator<EightPuzzleState> {
 	@Override
-	public double evaluate(State state) {
-		return getHeuristic((EightPuzzleState) state);
+	public double evaluate(EightPuzzleState state) {
+		return getHeuristic(state);
 	}
 
 	private double getHeuristic(EightPuzzleState state) {

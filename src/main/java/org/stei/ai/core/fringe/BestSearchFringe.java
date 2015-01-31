@@ -32,11 +32,4 @@ public class BestSearchFringe extends AbstractFringe {
         addedState.add(state);
         candidates.add(state);
     }
-
-    @Override
-    public void clear() {
-        candidates.clear();
-        addedState.clear();
-    }
-
 }

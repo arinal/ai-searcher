@@ -1,5 +1,5 @@
 package org.stei.ai.core;
 
-public interface Evaluator {	
-	public double evaluate(State state);
+public interface Evaluator<TState> {
+	public double evaluate(TState state);
 }
