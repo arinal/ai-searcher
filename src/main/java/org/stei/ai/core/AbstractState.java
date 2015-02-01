@@ -6,25 +6,29 @@ import java.util.Objects;
 
 import static java.util.stream.Collectors.joining;
 
-public abstract class AbstractState<TStatus, TState extends State> implements State<TStatus, TState> {
-    private final TState parentState;
-    protected final TStatus status;
+public abstract class AbstractState<TNode, TState extends State> implements State<TNode, TState> {
+    final private TState parentState;
+    protected final TNode node;
     private final int hash;
 
-    protected AbstractState(TState parentState, TStatus status) {
-        this.status = status;
+    protected AbstractState(TState parentState, TNode node) {
+        this.node = node;
         this.parentState = parentState;
         hash = hashCode();
     }
 
     @Override
-    public TStatus getStatus() {
-        return status;
+    public TNode getNode() {
+        return node;
     }
 
     @Override
     public TState getParentState() {
         return parentState;
+    }
+
+    public void setParentState(TState parentState) {
+        //this.parentState = parentState;
     }
 
     @Override
@@ -33,7 +37,7 @@ public abstract class AbstractState<TStatus, TState extends State> implements St
     }
 
     @Override
-    public int depth() {
+    public int pathLength() {
         return getPath().size();
     }
 
@@ -50,6 +54,12 @@ public abstract class AbstractState<TStatus, TState extends State> implements St
     }
 
     @Override
+    public boolean hasCyclicPath() {
+        List<TState> path = getPath();
+        return path.stream().map(s -> s.nodeHashCode()).distinct().count() != path.size();
+    }
+
+    @Override
     public String getPathString(String delimiter) {
         return getPath().stream().map(Object::toString).collect(joining(delimiter));
     }
@@ -61,17 +71,17 @@ public abstract class AbstractState<TStatus, TState extends State> implements St
 
     @Override
     public int pathHashCode() {
-        return hash == 0? Objects.hash(isNotRoot() ? parentState.hashCode() : 0, statusHashCode()) : hash;
+        return hash == 0? Objects.hash(isNotRoot() ? parentState.nodeHashCode() : 0, nodeHashCode()) : hash;
     }
 
     @Override
-    public boolean statusEquals(TState to) {
-        return status.equals(to.getStatus());
+    public boolean nodeEquals(TState to) {
+        return node.equals(to.getNode());
     }
 
     @Override
     public String toString() {
-        return status.toString();
+        return node.toString();
     }
 
     @Override
@@ -85,7 +95,7 @@ public abstract class AbstractState<TStatus, TState extends State> implements St
     }
 
     @Override
-    public int statusHashCode() {
-        return status.hashCode();
+    public int nodeHashCode() {
+        return node.hashCode();
     }
 }

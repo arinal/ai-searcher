@@ -9,6 +9,7 @@ target/
  
 *.class
 *.log
+map.txt
 
 # Package Files #
 *.jar

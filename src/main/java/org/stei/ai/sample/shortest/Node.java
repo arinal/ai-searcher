@@ -5,11 +5,7 @@ import java.util.Map;
 
 public class Node {
     private final String tag;
-    private Map<Node, Integer> edges;
-
-    public String getTag() {
-        return tag;
-    }
+    private final Map<Node, Integer> edges;
 
     public Node(String tag) {
         this.tag = tag;

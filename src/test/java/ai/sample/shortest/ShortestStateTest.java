@@ -1,6 +1,5 @@
 package ai.sample.shortest;
 
-
 import org.junit.Before;
 import org.junit.Test;
 import org.stei.ai.sample.shortest.Node;
@@ -51,5 +50,4 @@ public class ShortestStateTest {
     private Node b;
     private ShortestState stateB;
     private ShortestState stateB1;
-
 }

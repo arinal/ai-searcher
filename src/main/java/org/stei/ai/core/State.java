@@ -3,19 +3,21 @@ package org.stei.ai.core;
 import java.util.List;
 
 public interface State<TStatus, TState extends State> {
-	TStatus getStatus();
+	TStatus getNode();
     boolean isValid();
 
 	boolean isNotRoot();
     TState getParentState();
-	int depth();
+    void setParentState(TState parent);
 	Iterable<TState> getChildStates();
 
+    int pathLength();
     List<TState> getPath();
+    boolean hasCyclicPath();
     String getPathString(String delimiter);
     boolean pathEquals(TState to);
-    int pathHashCode();
 
-    boolean statusEquals(TState to);
-    int statusHashCode();
+    int pathHashCode();
+    boolean nodeEquals(TState to);
+    int nodeHashCode();
 }

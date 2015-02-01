@@ -22,14 +22,14 @@ public class ShortestState extends AbstractState<Node, ShortestState> {
 
     @Override
     public Iterable<ShortestState> getChildStates() {
-        Iterable<Node> nodes = status.getNeighbours();
+        Iterable<Node> nodes = node.getNeighbours();
         return StreamSupport.stream(nodes.spliterator(), true)
                 .map(n -> new ShortestState(this, n))
                 .collect(Collectors.toList());
     }
 
     public int getDistanceToParentNode() {
-        return isNotRoot()? status.getDistance(getParentState().status) : 0;
+        return isNotRoot()? node.getDistance(getParentState().node) : 0;
     }
 }
 

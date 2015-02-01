@@ -1,14 +1,14 @@
 package org.stei.ai.core.fringe;
 
-import java.util.HashSet;
-import java.util.PriorityQueue;
-
 import org.stei.ai.core.Evaluator;
 import org.stei.ai.core.State;
 
+import java.util.PriorityQueue;
+
+import static java.util.stream.Collectors.joining;
+
 public class BestSearchFringe extends AbstractFringe {
     private Evaluator evaluator;
-    private HashSet<State> addedState = new HashSet<>();
 
     private PriorityQueue<State> candidates = new PriorityQueue<>(1, (s1, s2) -> {
         Double value1 = evaluator.evaluate(s1);
@@ -16,8 +16,13 @@ public class BestSearchFringe extends AbstractFringe {
         return value1.compareTo(value2);
     });
 
-    public BestSearchFringe(Evaluator evaluator) {
+    public BestSearchFringe(Evaluator evaluator, boolean rejectDuplicate, boolean rejectCyclic) {
+        super(rejectDuplicate, rejectCyclic);
         this.evaluator = evaluator;
+    }
+
+    public BestSearchFringe(Evaluator evaluator) {
+        this(evaluator, false, true);
     }
 
     @Override
@@ -26,10 +31,17 @@ public class BestSearchFringe extends AbstractFringe {
     }
 
     @Override
-    public void add(State state) {
-        if (addedState.contains(state))
-            return;
-        addedState.add(state);
+    protected void addState(State state) {
         candidates.add(state);
+    }
+
+    @Override
+    public boolean hasCandidates() {
+        return !candidates.isEmpty();
+    }
+
+    @Override
+    public String toString() {
+        return candidates.stream().map(s -> s.getPathString("-")).collect(joining(" "));
     }
 }

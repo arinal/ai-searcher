@@ -8,16 +8,33 @@ import org.stei.ai.core.State;
 
 public class BreadthSearchFringe extends AbstractFringe {
 	private Queue<State> candidates = new LinkedList<>();
-	private HashSet<State> addedState = new HashSet<>();
-	
-	public void add(State state) {
-		if (addedState.contains(state))
-			return;
-		candidates.add(state);
-        addedState.add(state);
-	}	
+	private HashSet<Object> addedNode = new HashSet<>();
 
-	public State pickCandidate() {
+    public BreadthSearchFringe() {
+        super(false, true);
+    }
+
+    public BreadthSearchFringe(boolean rejectDuplicate, boolean rejectCyclic) {
+        super(rejectDuplicate, rejectCyclic);
+    }
+
+    @Override
+    protected void addState(State state) {
+        candidates.add(state);
+        addedNode.add(state.nodeHashCode());
+    }
+
+    @Override
+    protected boolean contains(State state) {
+        return addedNode.contains(state.nodeHashCode());
+    }
+
+    @Override
+    public boolean hasCandidates() {
+        return !candidates.isEmpty();
+    }
+
+    public State pickCandidate() {
         return candidates.remove();
 	}
 }

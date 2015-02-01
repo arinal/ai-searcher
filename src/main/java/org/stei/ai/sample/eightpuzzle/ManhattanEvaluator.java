@@ -6,7 +6,7 @@ public class ManhattanEvaluator implements Evaluator<EightPuzzleState> {
 	@Override
 	public double evaluate(EightPuzzleState state) {
 		double result = 0;
-		int[] status = state.getStatus();
+		int[] status = state.getNode();
 		for (int i = 0; i < status.length; i++)
 			result += getManhattanDistance(status[i], i);
 		return result;

@@ -1,7 +1,6 @@
 package org.stei.ai.core;
 
 public class AStarEvaluator<TState extends State> implements Evaluator<TState> {
-
     private Evaluator greedyEvaluator;
 
     public AStarEvaluator(Evaluator greedyEvaluator) {
@@ -14,6 +13,6 @@ public class AStarEvaluator<TState extends State> implements Evaluator<TState> {
     }
 
     protected int getActual(TState state) {
-        return state.depth();
+        return state.pathLength();
     }
 }
