@@ -7,9 +7,10 @@ import java.util.Objects;
 import static java.util.stream.Collectors.joining;
 
 public abstract class AbstractState<TNode, TState extends State> implements State<TNode, TState> {
-    final private TState parentState;
+    private final TState parentState;
     protected final TNode node;
     private final int hash;
+    private LinkedList<TState> path;
 
     protected AbstractState(TState parentState, TNode node) {
         this.node = node;
@@ -27,13 +28,13 @@ public abstract class AbstractState<TNode, TState extends State> implements Stat
         return parentState;
     }
 
-    public void setParentState(TState parentState) {
-        //this.parentState = parentState;
-    }
-
     @Override
     public boolean isNotRoot() {
         return getParentState() != null;
+    }
+
+    public TState getRoot() {
+        return getPath().stream().findFirst().get();
     }
 
     @Override
@@ -44,7 +45,7 @@ public abstract class AbstractState<TNode, TState extends State> implements Stat
     @Override
     public List<TState> getPath() {
         TState currentState = (TState) this;
-        LinkedList<TState> path = new LinkedList<>();
+        path = new LinkedList<>();
         while (currentState.isNotRoot()) {
             path.addFirst(currentState);
             currentState = (TState)currentState.getParentState();

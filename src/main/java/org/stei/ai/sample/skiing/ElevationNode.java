@@ -26,11 +26,6 @@ public class ElevationNode implements Comparable<ElevationNode> {
         return neighbours.get(direction);
     }
 
-    public int getDelta(Direction direction) {
-        ElevationNode node = getNode(direction);
-        return node == null? 0 : compareTo(node);
-    }
-
     public ElevationNode create(Direction direction, int elevation) {
         return new ElevationNode(x + direction.deltaX(), y + direction.deltaY(), elevation);
     }
@@ -76,7 +71,8 @@ public class ElevationNode implements Comparable<ElevationNode> {
 
     @Override
     public String toString() {
-        return elevation + "";
+        return String.format("(%d,%d,%d)", x, y, elevation);
+//        return elevation + "";
     }
 
     @Override

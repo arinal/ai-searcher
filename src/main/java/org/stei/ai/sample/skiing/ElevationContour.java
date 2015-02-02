@@ -6,30 +6,42 @@ import java.util.Objects;
 
 public class ElevationContour {
 
-    private HashMap<Integer, ElevationNode> contours = new HashMap<>();
+    private final ElevationNode[][] contours;
+
+    public int getLength() {
+        return contours.length;
+    }
+
+    public int getWidth() {
+        return contours[0].length;
+    }
 
     public ElevationContour(int width, int height, int... elevations) {
         if (elevations.length != width * height)
             throw new IllegalArgumentException("elevations");
+        contours = new ElevationNode[height][width];
         int i = 0;
-        for (int e : elevations)
-            put(i % width, i++ / width, e);
-        contours.values().forEach(this::setupLinks);
+        for (int e : elevations) {
+            int x = i % width;
+            int y = i++ / width;
+            contours[y][x] = new ElevationNode(x, y, e);
+        }
+        Arrays.stream(contours).forEach(ns -> Arrays.stream(ns).forEach(n -> setupLinks(n)));
+    }
+
+    public ElevationNode get(int x, int y) {
+        if (x >= 0 && x < contours[0].length && y >= 0 && y < contours.length)
+            return contours[y][x];
+        return null;
     }
 
     private void setupLinks(ElevationNode node) {
         Arrays.stream(Direction.values()).forEach(dir -> {
             int x = node.getX() + dir.deltaX();
             int y = node.getY() + dir.deltaY();
-            node.setNode(get(x, y), dir);
+            ElevationNode neighbour = get(x, y);
+            if (neighbour != null)
+                node.setNode(neighbour, dir);
         });
-    }
-
-    private void put(int x, int y, int elevation) {
-        contours.put(Objects.hash(x, y), new ElevationNode(x, y, elevation));
-    }
-
-    public ElevationNode get(int x, int y) {
-        return contours.get(Objects.hash(x, y));
     }
 }

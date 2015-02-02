@@ -12,18 +12,24 @@ import org.stei.ai.sample.shortest.Node;
 import org.stei.ai.sample.shortest.PathEvaluator;
 import org.stei.ai.sample.shortest.ShortestState;
 import org.stei.ai.sample.skiing.ElevationContour;
+import org.stei.ai.sample.skiing.ElevationNode;
 import org.stei.ai.sample.skiing.SkiLengthEvaluator;
 import org.stei.ai.sample.skiing.SkiingState;
 
+import java.io.*;
+import java.util.Scanner;
+import java.util.stream.IntStream;
+
 public class Program {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, IOException {
 //        shortest();
-//
+
 //        System.out.println();
 //        eightPuzzle();
 
         System.out.println();
         skiing();
+
     }
 
     public static void shortest() throws InterruptedException {
@@ -72,24 +78,46 @@ public class Program {
         System.out.println(steps.getPath().size() + " steps");
     }
 
-    private static void skiing() throws InterruptedException {
+    private static void skiing() throws InterruptedException, FileNotFoundException {
+        File file = new File("src/main/resources/map.txt");
+        Scanner in = new Scanner(file);
+
+        int width = in.nextInt();
+        int length = in.nextInt();
+        int[] values = IntStream.range(0, width * length).map(n -> in.nextInt()).toArray();
+        in.close();
+
         ElevationContour contour = new ElevationContour(
+                width, length, values
 //                4, 4,
+//                5, 5, 6, 7,
+//                2, 5, 9, 8,
+//                6, 3, 2, 5,
+//                4, 4, 1, 6
+
+//                4, 4, new int[] {
 //                4, 8, 7, 3,
 //                2, 5, 9, 3,
 //                6, 3, 2, 5,
-//                4, 4, 1, 6);
-                4, 4, new int[] {
-                4, 8, 7, 3,
-                2, 5, 9, 3,
-                6, 3, 2, 5,
-                4, 4, 1, 6
-        });
-        State from = new SkiingState(null, contour.get(2, 1));
-        State steps = new Searcher(
-//                new BreadthSearchFringe())
-                new BestSearchFringe(new SkiLengthEvaluator(), false, true))
-                .search(from);
-        System.out.println(steps.getPathString("-"));
+//                4, 4, 1, 6}
+        );
+
+        System.out.println("calculating...");
+        SkiLengthEvaluator evaluator = new SkiLengthEvaluator();
+        Searcher searcher = new Searcher(
+                new BreadthSearchFringe());
+//            new BestSearchFringe(evaluator, false, true));
+        SkiingState longest = new SkiingState(null, new ElevationNode(0, 0, 0));
+        // I know.. my solution is not Top-Coder-ish (no memoization, Dynamic Programming), but hey.. its works!
+        for (int y = 0; y < contour.getLength(); y++) {
+            for (int x = 0; x < contour.getWidth(); x++) {
+                SkiingState from = new SkiingState(null, contour.get(x, y));
+                SkiingState step = (SkiingState)searcher.search(from);
+                if (evaluator.evaluate(step) > evaluator.evaluate(longest)) {
+                    longest = step;
+                    System.out.println(longest.pathLength() + " " + longest.getOriginToBottomDelta() + " " + step.getPathString("-"));
+                }
+            }
+        }
     }
 }

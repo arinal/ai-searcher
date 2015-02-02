@@ -32,6 +32,7 @@ public class BestSearchFringe extends AbstractFringe {
 
     @Override
     protected void addState(State state) {
+//        System.out.print("+" + state.getPathString("-") + " ");
         candidates.add(state);
     }
 

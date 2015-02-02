@@ -8,7 +8,7 @@ public interface State<TStatus, TState extends State> {
 
 	boolean isNotRoot();
     TState getParentState();
-    void setParentState(TState parent);
+    TState getRoot();
 	Iterable<TState> getChildStates();
 
     int pathLength();
