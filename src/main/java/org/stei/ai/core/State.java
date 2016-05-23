@@ -3,13 +3,13 @@ package org.stei.ai.core;
 import java.util.List;
 
 public interface State<TStatus, TState extends State> {
-	TStatus getNode();
+    TStatus getNode();
     boolean isValid();
 
-	boolean isNotRoot();
+    boolean isNotRoot();
     TState getParentState();
     TState getRoot();
-	Iterable<TState> getChildStates();
+    Iterable<TState> getChildStates();
 
     int pathLength();
     List<TState> getPath();

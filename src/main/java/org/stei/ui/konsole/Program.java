@@ -79,27 +79,21 @@ public class Program {
     }
 
     private static void skiing() throws InterruptedException, FileNotFoundException {
-        File file = new File("src/main/resources/map.txt");
-        Scanner in = new Scanner(file);
+        // File file = new File("src/main/resources/map.txt");
+        // Scanner in = new Scanner(file);
 
-        int width = in.nextInt();
-        int length = in.nextInt();
-        int[] values = IntStream.range(0, width * length).map(n -> in.nextInt()).toArray();
-        in.close();
+        // int width = in.nextInt();
+        // int length = in.nextInt();
+        // int[] values = IntStream.range(0, width * length).map(n -> in.nextInt()).toArray();
+        // in.close();
+        // ElevationContour contour = new ElevationContour(width, length, values);
 
         ElevationContour contour = new ElevationContour(
-                width, length, values
-//                4, 4,
-//                5, 5, 6, 7,
-//                2, 5, 9, 8,
-//                6, 3, 2, 5,
-//                4, 4, 1, 6
-
-//                4, 4, new int[] {
-//                4, 8, 7, 3,
-//                2, 5, 9, 3,
-//                6, 3, 2, 5,
-//                4, 4, 1, 6}
+               4, 4,
+               5, 5, 6, 7,
+               2, 5, 9, 8,
+               6, 3, 2, 5,
+               4, 4, 1, 6
         );
 
         System.out.println("calculating...");

@@ -30,15 +30,3 @@ public class Searcher {
         return current;
     }
 }
-
-//    public State searchWithLog(State from, State to) {
-//        State current = from;
-//        fringe.add(current);
-//        do {
-//            System.out.print(fringe + ": ");
-//            current = fringe.pickCandidate();
-//            current.getChildStates().forEach(s -> fringe.add((State) s));
-//            System.out.println("-" + current.getPathString("-"));
-//        } while (!current.nodeEquals(to));
-//        return current;
-//    }
