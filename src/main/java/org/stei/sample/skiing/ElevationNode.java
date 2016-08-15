@@ -1,4 +1,4 @@
-package org.stei.ai.sample.skiing;
+package org.stei.sample.skiing;
 
 import java.util.*;
 
@@ -72,7 +72,6 @@ public class ElevationNode implements Comparable<ElevationNode> {
     @Override
     public String toString() {
         return String.format("(%d,%d,%d)", x, y, elevation);
-//        return elevation + "";
     }
 
     @Override

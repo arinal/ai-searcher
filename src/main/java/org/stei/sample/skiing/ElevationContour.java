@@ -1,8 +1,6 @@
-package org.stei.ai.sample.skiing;
+package org.stei.sample.skiing;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Objects;
 
 public class ElevationContour {
 

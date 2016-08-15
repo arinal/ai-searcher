@@ -1,4 +1,4 @@
-package org.stei.ai.sample.shortest;
+package org.stei.sample.shortest;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,4 +47,3 @@ public class Node {
         return tag.hashCode();
     }
 }
-

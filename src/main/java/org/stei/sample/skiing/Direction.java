@@ -1,4 +1,4 @@
-package org.stei.ai.sample.skiing;
+package org.stei.sample.skiing;
 
 public enum Direction {
     North(0, -1),

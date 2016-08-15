@@ -1,8 +1,7 @@
-package org.stei.ai.sample.skiing;
+package org.stei.sample.skiing;
 
 import org.stei.ai.core.AbstractState;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class SkiingState extends AbstractState<ElevationNode, SkiingState> {

@@ -2,8 +2,8 @@ package ai.sample.skiing;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.stei.ai.sample.skiing.Direction;
-import org.stei.ai.sample.skiing.ElevationNode;
+import org.stei.sample.skiing.Direction;
+import org.stei.sample.skiing.ElevationNode;
 
 import java.util.List;
 
@@ -12,14 +12,6 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 public class ElevationNodeTest {
-    @Before
-    public void given() {
-        centerNode = new ElevationNode(1, 1, 5);
-        northNode = new ElevationNode(1, 0, 7);
-        southNode = new ElevationNode(1, 2, 4);
-        westNode = new ElevationNode(0, 1, 4);
-        eastNode = new ElevationNode(2, 1, 7);
-    }
 
     @Test
     public void can_create_node_by_direction() {
@@ -64,6 +56,15 @@ public class ElevationNodeTest {
         assertTrue(nodes.stream().anyMatch(n -> n.equals(westNode)));
         assertTrue(nodes.stream().noneMatch(n -> n.equals(northNode)));
         assertTrue(nodes.stream().noneMatch(n -> n.equals(eastNode)));
+    }
+
+    @Before
+    public void given() {
+        centerNode = new ElevationNode(1, 1, 5);
+        northNode = new ElevationNode(1, 0, 7);
+        southNode = new ElevationNode(1, 2, 4);
+        westNode = new ElevationNode(0, 1, 4);
+        eastNode = new ElevationNode(2, 1, 7);
     }
 
     private ElevationNode northNode;

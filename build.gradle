@@ -16,7 +16,7 @@ task wrapper(type: Wrapper) {
 }
 
 task run(type: JavaExec) {
-    main = "org.stei.ui.konsole.Program"
+    main = "org.stei.sample.Program"
     classpath = files("build/libs/${project.name}-${version}.jar")
 }
 

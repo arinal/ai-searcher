@@ -1,4 +1,4 @@
-package org.stei.ai.sample.shortest;
+package org.stei.sample.shortest;
 
 import org.stei.ai.core.AbstractState;
 
@@ -24,12 +24,11 @@ public class ShortestState extends AbstractState<Node, ShortestState> {
     public Iterable<ShortestState> getChildStates() {
         Iterable<Node> nodes = node.getNeighbours();
         return StreamSupport.stream(nodes.spliterator(), true)
-                .map(n -> new ShortestState(this, n))
-                .collect(Collectors.toList());
+            .map(n -> new ShortestState(this, n))
+            .collect(Collectors.toList());
     }
 
     public int getDistanceToParentNode() {
         return isNotRoot()? node.getDistance(getParentState().node) : 0;
     }
 }
-

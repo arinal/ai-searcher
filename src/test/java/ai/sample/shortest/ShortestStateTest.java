@@ -2,8 +2,8 @@ package ai.sample.shortest;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.stei.ai.sample.shortest.Node;
-import org.stei.ai.sample.shortest.ShortestState;
+import org.stei.sample.shortest.Node;
+import org.stei.sample.shortest.ShortestState;
 
 import static junit.framework.TestCase.assertFalse;
 import static org.hamcrest.CoreMatchers.not;
@@ -12,17 +12,6 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 public class ShortestStateTest {
-    @Before
-    public void given() {
-        a = new Node("A");
-        stateA = new ShortestState(a);
-        a1 = new Node("A");
-        stateA1 = new ShortestState(a1);
-
-        b = new Node("B");
-        stateB = new ShortestState(stateA, b);
-        stateB1 = new ShortestState(stateA, b);
-    }
 
     @Test
     public void state_A_is_equals_state_A1() {
@@ -40,6 +29,18 @@ public class ShortestStateTest {
     public void state_B_equals_state_B1() {
         assertThat(stateB.hashCode(), equalTo(stateB1.hashCode()));
         assertTrue(stateB.equals(stateB1));
+    }
+
+    @Before
+    public void given() {
+        a = new Node("A");
+        stateA = new ShortestState(a);
+        a1 = new Node("A");
+        stateA1 = new ShortestState(a1);
+
+        b = new Node("B");
+        stateB = new ShortestState(stateA, b);
+        stateB1 = new ShortestState(stateA, b);
     }
 
     private Node a;
