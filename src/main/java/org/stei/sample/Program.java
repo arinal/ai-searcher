@@ -19,13 +19,13 @@ import java.io.*;
 
 public class Program {
     public static void main(String[] args) throws InterruptedException, IOException {
-//         shortest();
+        // shortest();
 
         System.out.println();
         eightPuzzle();
 
-//         System.out.println();
-//         skiing();
+        // System.out.println();
+        // skiing();
     }
 
     public static void shortest() throws InterruptedException {
